@@ -1,0 +1,20 @@
+Instalacja i Konfiguracja Apache z PHP na systemie Linux
+Paweł Sołtysiak I1-41A
+
+Instalacja 
+Opisany proces został przeprowadzony na dystrybucji linuksowej o nazwie Ubuntu
+sudo apt-get install taskel
+sudo tasksel install lamp-server
+
+Konfiguracja
+Konfiguracja PHP korzystając z pliku php.ini
+Dyrektywa	Do czego służy?
+error_log	Ścieżka do której będą zapisywane logi
+error_reporting	Określenie rodzaju błędów który będzie logowany
+memory_limit	Ustala limit pamięci dla aplikacji, domyślnie 128MB
+safe_mode	Włącza tryb safe, popularne ustawienie na publicznych hostingach
+display_errors	Wyświetla błędy użytkowników
+html_errors	Ustawienie czy błędy mają być formatowane w postaci HTML
+Xdebug.*	Zestaw dyrektyw  służących do obsługi debuggera
+upload_max_filesize	Rozmiar pliku który można wgrać na serwer
+
