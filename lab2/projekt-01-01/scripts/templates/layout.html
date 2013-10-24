@@ -1,11 +1,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
-<title>Projekt 1.1</title>
+<title><?php if (isset($tytul)): ?>
+Jan Kochanowski / Fraszki / <?php echo $tytul; ?>
+<?php else: ?>
+Błąd 404!
+<?php endif; ?>
+</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="<?php echo
-$path_prefix; ?>css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $path_prefix; ?>css/style.css" />
 </head>
 <body>
+<div id="pojemnik">
+<div id="naglowek">
+<h1>Jan Kochanowski</h1>
+<h2>Fraszki</h2>
+<ol>
+<?php foreach ($menu as $opcja) : ?>
+<li><a href="index.php?module=fraszka&action=show&slug=<?php echo $opcja['slug']; ?>"><?php echo $opcja['tytul']; ?></a></li>
+<?php endforeach; ?>
+</ol>
+</div>
+<div id="tresc">
 <?php include "../scripts/modules/$module/$action.html"; ?>
+</div>
 </body>
 </html>

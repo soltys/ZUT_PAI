@@ -7,6 +7,6 @@ set_include_path(
 '../scripts/include' . PATH_SEPARATOR . 
 get_include_path()
 );
-require_once 'Controller.class.php';
-$controller = new Controller();
+require_once 'MyController.class.php';
+$controller = new MyController();
 $controller->dispatch();
