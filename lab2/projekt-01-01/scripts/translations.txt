@@ -1,0 +1,5 @@
+/pierwszy-projekt.html index.php?module=main&action=hello
+/ index.php?module=main&action=hello
+/index.html index.php?module=obrazy&action=zdjecie
+/a/b/c/d/ index.php?module=obrazy&action=zdjecie
+/tekst.html index.php?module=tekst&action=drukuj
