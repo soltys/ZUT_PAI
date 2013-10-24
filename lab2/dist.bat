@@ -12,4 +12,4 @@ set PATH=%PATH%;%sevenZipPath%
 
 del %ZIPNAME%
 
-7z a %ZIPNAME% projekt-01-01 zad7
+7z a -mx9 -tzip %ZIPNAME% projekt-01-01 zad7
