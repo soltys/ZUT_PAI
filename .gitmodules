@@ -1,0 +1,3 @@
+[submodule "lab2/zad7/code"]
+	path = lab2/zad7/code
+	url = git@github.com:soltys/ZUT_systemy_internetowe.git

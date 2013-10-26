@@ -5,7 +5,7 @@ REM must run on elevated privileges
 
 SET WAMPDIR=c:\wamp\www
 SET SYMLINK=pai2_7
-SET TARGET=%cd%\cakephp
+SET TARGET=%cd%\code
 
 cd %WAMPDIR%
 
