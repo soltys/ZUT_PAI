@@ -4,11 +4,11 @@
 REM must run on elevated privileges
 
 SET WAMPDIR=c:\wamp\www
-SET SYMLINK=pai2
-SET TARGET=%cd%\projekt-01-01
+SET SYMLINK=pai2_7
+SET TARGET=%cd%\cakephp
 
 cd %WAMPDIR%
-if not exist %SYMLINK%
+
 mklink /D %SYMLINK% %TARGET%
 
 rem installed
