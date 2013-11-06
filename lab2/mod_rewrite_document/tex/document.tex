@@ -4,14 +4,83 @@
 \usepackage{parskip}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{listings}
 \title{Przyjazne URLe}
 \author{\textsc{Paweł Sołtysiak I1-41A} \\ \texttt{psoltysiak@wi.zut.edu.pl}}
+
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Octave,                 % the language of the code
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
 
 \begin{document}
 \maketitle
 
 \section{Mechanizm działania przyjaznych URL}
-\section{Mechanizm działania kontrolera}
+\subsection{Instalacja}
+Do działania przyjaznych URL potrzebne jest zainstalowanie modułu \texttt{mod\_rewrite} do serwera Apache. W systemie ubuntu moduł mod\_rewrite jest instalowany razem z serwerem Apache, ale jest on domyślnie wyłączony.
 
+\texttt{apt-get install apache2}
+
+\texttt{sudo a2enmod rewrite}
+
+\texttt{sudo service apache2 restart}
+
+\subsection{Prosty przykład}
+Moduł mod\_rewrite wykonuje translacje adresów URL. Przeglądarka wysyła żądanie dotyczące pliku o nazwie \texttt{adres.html}. Moduł \texttt{mod\_rewrite} powoduje, że serwer Apache, w odpowiedzi na żądanie o plik \texttt{adres.html} wyśle plik \texttt{index.php}. Na serwerze nie ma pliku o nazwie \texttt{adres.html}.
+
+Następnie w tym samym folderze tworzymy plik o nazwie \texttt{.htaccess}. W pliku tym umieszczamy dwie dyrektywy konfiguracyjne \texttt{RewriteEngine} oraz \texttt{RewriteRule}: 
+
+\begin{lstlisting}[caption=plik .htaccess]
+RewriteEngine on
+RewriteRule adres.html index.php
+\end{lstlisting}
+
+Pierwsza z nich włącza działanie modułu mod\_rewrite, a druga ustala wykonywaną translację. Podana reguła powoduje, że żądanie HTTP:
+
+\texttt{GET /adres.html HTTP/1.1}
+
+będzie obsługiwane identycznie, jak żądanie:
+
+\texttt{GET /index.php HTTP/1.1}
+
+Innymi słowy, w odpowiedzi na żądanie o plik \texttt{adres.html}, serwer Apache wyśle plik \texttt{index.php} (dokładniej: kod HTML wygenerowany przez skrypt index.php). 
+
+\section{Mechanizm działania kontrolera}
+Zadaniem kontrolera jest odbiór, przetworzenie oraz analiza danych wejściowych od użytkownika. W typowej aplikacji źródłami danych wejściowych będą klawiatura i mysz. Po przetworzeniu odebranych danych kontroler może wykonać następujące czynności:
+\begin{itemize}
+\item zmienić stan modelu,
+\item odświeżyć widok,
+\item przełączyć sterowanie na inny kontroler.
+
+\end{itemize}
+    
+Każdy kontroler posiada bezpośrednie wskazania na określone modele i widoki, z którymi współpracuje, a jednocześnie w aplikacji może istnieć wiele kontrolerów. W danym momencie tylko jeden z nich steruje aplikacją.
 \end{document}
 
