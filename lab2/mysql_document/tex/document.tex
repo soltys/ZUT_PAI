@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage[MeX]{polski}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\title{Instalacja i konfiguracja serwera \texttt{MySQL} oraz \texttt{phpMyAdmin}}
+\author{\textsc{Paweł Sołtysiak I1-41A} \\ \texttt{psoltysiak@wi.zut.edu.pl}}
+
+\begin{document}
+\maketitle
+
+\section{MySQL -- Ubuntu}
+\subsection{Instalacja}
+Instalacja serwera MySQL + modułu dla apache pozwalającego połączyć ze sobą PHP oraz Mysql
+\texttt{sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql}
+\subsection{Konfiguracja}
+\subsubsection{Ustawienia hasła na roota}
+Przed dostępem do bazy danych:
+
+\texttt{\$ mysql -u root}
+
+W konsoli MySQL trzeba wpisać:
+
+\texttt{\$ mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('yourpassword');}
+
+\textbf{Uwaga}: Jeżeli już miałeś ustawione hasło na root musisz użyć komendy:
+\texttt{\$ mysql -u root -p}
+
+
+\subsubsection{Tworzenie bazy danych}
+Po połączeniu do bazy danych trzeba wykonać polecenie
+
+\texttt{\$ mysql> CREATE DATABASE database1;}
+
+\subsubsection{Tworzenie użytkownika bazy danych}
+
+Tworzenie nowego użytkownka z pełynymi prawami, w konsoli MySQL trzeba wpisać:
+
+\texttt{\$ mysql> GRANT ALL PRIVILEGES ON *.* TO 'yourusername'@'localhost' IDENTIFIED BY 'yourpassword' WITH GRANT OPTION;}
+
+Aby utworzyć nowego użytkownika z mniejszą ilością uprawnień. Taki użytkownik ma dostęp tylko do bazy danych o nazwie "database1". Wprowadź w konsoli mysql następujące polecenie :
+
+\texttt{\$ mysql> GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES\\ ON database1.* TO 'yourusername'@'localhost' \\IDENTIFIED BY 'yourpassword';}
+
+Pole yourusername oraz pole yourpassword możesz ustawić na dowolne wartości. database1 jest nazwą bazy danych do której użytkownik otrzymuje dostęp. localhost jest lokalizacją do która dostaje dostęp do bazy danych. Możesz ją zmienić na wartość '\%' (lub do nazwy hosta lub do adresu ip) aby zezwolić na dostęp z dowolnej lokalizacji (lub określić szczegółową lokalizacje) do bazy danych. 
+
+Aby wyjść z konsoli MySQL wpisać:
+
+\texttt{\$ mysql> \\q}
+\section{phpMyAdmin -- Ubuntu}
+\subsection{Instalacja}
+W konsoli trzeba wpisać polecenie:
+
+\texttt{sudo apt-get install phpmyadmin}
+\subsection{Konfiguracja}
+Jeżeli po wejściu na adres \texttt{http://localhost/phpmyadmin} przeglądarka zwraca błąd 404
+
+Trzeba z edytować plik poprzez polecenie w konsoli
+
+\texttt{\$ gksudo gedit /etc/apache2/apache2.conf}
+
+Dodaj następującą linijkę na końcu pliku
+
+\texttt{\$ Include /etc/phpmyadmin/apache.conf}
+\end{document}
+
