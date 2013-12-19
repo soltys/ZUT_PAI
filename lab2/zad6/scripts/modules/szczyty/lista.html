@@ -1,0 +1,12 @@
+<table>
+<tr>
+<th>Szczyt</th>
+<th>Wysokość<br />m n.p.m.</th>
+</tr>
+<?php foreach ($szczyty as $sz) : ?>
+<tr>
+<td><?php echo $sz['nazwa']; ?></td>
+<td><?php echo $sz['wysokosc']; ?></td>
+</tr>
+<?php endforeach; ?>
+</table>

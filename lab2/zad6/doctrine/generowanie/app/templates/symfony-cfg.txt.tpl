@@ -1,0 +1,1 @@
+symfony configure:database "mysql:host={$conf.host};dbname={$conf.database}" {$conf.username} {$conf.password}

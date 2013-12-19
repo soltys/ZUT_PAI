@@ -1,0 +1,8 @@
+/pierwszy-projekt.html index.php?module=main&action=hello
+/ index.php?module=main&action=hello
+/index.html index.php?module=obrazy&action=zdjecie
+/a/b/c/d/ index.php?module=obrazy&action=zdjecie
+/tekst.html index.php?module=tekst&action=drukuj
+/index2.html index.php?module=fraszka&action=show&slug=do_goscia
+/REGEXP1.html index.php?module=fraszka&action=show&slug=REGEXP1
+/tatry.html index.php?module=szczyty&action=lista

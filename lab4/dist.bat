@@ -2,7 +2,7 @@
 
 setlocal
 
-SET LABNR=3
+SET LABNR=4
 SET FNAME=p
 SET LNAME=soltysiak
 SET ZIPNAME=PAI_LAB%LABNR%_%FNAME%.%LNAME%.zip
@@ -12,6 +12,6 @@ set PATH=%PATH%;%sevenZipPath%
 
 del %ZIPNAME%
 
-7z a -mx9 -tzip %ZIPNAME% todo_projekt zad5
+7z a -mx9 -tzip %ZIPNAME% code
 
 

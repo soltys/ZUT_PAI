@@ -1,0 +1,24 @@
+<h1><?php echo $dzisiejsza_data; ?></h1>
+
+<h1><?php echo $tytul; ?></h1>
+<p>
+Godzina: <?php echo $godzina; ?>
+</p>
+<p>
+<?php echo $tresc; ?>
+</p>
+<h1>Kolory</h1>
+<table>
+<tr>
+<th>Kolor</th>
+<th>Nazwa</th>
+<th>RGB</th>
+</tr>
+<?php foreach ($kolory as $k) : ?>
+<tr>
+<td style='background: #<?php echo $k[0]; ?>'></td>
+<td><?php echo $k[1]; ?></td>
+<td><code><?php echo $k[0]; ?></code></td>
+</tr>
+<?php endforeach; ?>
+</table>

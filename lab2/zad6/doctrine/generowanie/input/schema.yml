@@ -1,0 +1,18 @@
+---
+detect_relations: true
+options:
+  collate: utf8_polish_ci
+  charset: utf8
+  type: InnoDB
+
+szczyt:
+  columns:
+    szczyt_id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    nazwa:
+      type: string(45)
+    wysokosc:
+      type: integer(4)
+

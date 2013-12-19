@@ -27,7 +27,7 @@ call make_pdf
 cd ..
 copy mod_rewrite_document\mod_rewrite.pdf mod_rewrite.pdf
 
-7z a -mx9 -tzip %ZIPNAME% projekt-01-01 zad7 mysql.pdf mod_rewrite.pdf
+7z a -mx9 -tzip %ZIPNAME% projekt-01-01 zad7 zad6 mysql.pdf mod_rewrite.pdf
 
 del mysql.pdf
 del mod_rewrite.pdf

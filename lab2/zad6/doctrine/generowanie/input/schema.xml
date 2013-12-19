@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database defaultIdMethod="native" name="books">
+
+  <table name="book">
+
+    <column name="book_id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true"/>
+
+    <column name="title" type="VARCHAR" size="128"/>
+
+  </table>
+
+</database>
+
