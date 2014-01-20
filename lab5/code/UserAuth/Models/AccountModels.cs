@@ -25,7 +25,7 @@ namespace UserAuth.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
-
+        
     }
 
     public class RegisterExternalLoginModel
@@ -94,5 +94,14 @@ namespace UserAuth.Models
         public string Provider { get; set; }
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
+    }
+
+    public class LocalUsersModel
+    {
+        public int UserId { get; set; }
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+        [Display(Name = "User is an admin?")]
+        public bool IsAdmin { get; set; }      
     }
 }

@@ -17,6 +17,8 @@ namespace UserAuth.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private UsersContext db = new UsersContext();
+
         //
         // GET: /Account/Login
 
@@ -294,6 +296,57 @@ namespace UserAuth.Controllers
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
+        }
+
+        public ActionResult List()
+        {
+            var simpleRoleProvider = (SimpleRoleProvider)Roles.Provider;
+            var dbUsers = db.UserProfiles.ToList();
+            var localUsers = new List<LocalUsersModel>();
+            foreach (var user in dbUsers)
+            {
+                var localUser = new LocalUsersModel();
+                localUser.UserId = user.UserId;
+                localUser.UserName = user.UserName;
+                localUser.IsAdmin = simpleRoleProvider.IsUserInRole(localUser.UserName, "admin");
+                localUsers.Add(localUser);
+            }
+            return View(localUsers);
+        }
+
+        public ActionResult AddAdmin(int? userId)
+        {
+            var simpleRoleProvider = (SimpleRoleProvider)Roles.Provider;
+            var dbUser = db.UserProfiles.FirstOrDefault(user => user.UserId == userId);
+            if (dbUser == null)
+            {
+                return RedirectToAction("List");
+            }
+            if (!simpleRoleProvider.RoleExists("admin"))
+            {
+                simpleRoleProvider.CreateRole("admin");
+            }
+            
+            if (!simpleRoleProvider.IsUserInRole(dbUser.UserName, "admin"))
+            {
+                simpleRoleProvider.AddUsersToRoles(new[] { dbUser.UserName }, new[] { "admin" });
+            }
+            return RedirectToAction("List");
+        }
+
+        public ActionResult RemoveAdmin(int? userId)
+        {
+            var simpleRoleProvider = (SimpleRoleProvider)Roles.Provider;
+            var dbUser = db.UserProfiles.FirstOrDefault(user => user.UserId == userId);
+            if (dbUser == null)
+            {
+                return RedirectToAction("List");
+            }
+            if (simpleRoleProvider.IsUserInRole(dbUser.UserName, "admin"))
+            {
+                simpleRoleProvider.RemoveUsersFromRoles(new[] { dbUser.UserName }, new[] { "admin" });
+            }
+            return RedirectToAction("List");
         }
 
         //

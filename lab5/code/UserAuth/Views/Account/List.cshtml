@@ -1,0 +1,35 @@
+﻿@model IEnumerable<UserAuth.Models.LocalUsersModel>
+
+@{
+    ViewBag.Title = "List users";
+}
+
+<h2>List</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAdmin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.IsAdmin)
+        </td>
+        <td>
+            @Html.ActionLink("Add admin right", "AddAdmin", new { userId=item.UserId }) 
+            @Html.ActionLink("Remove admin right", "RemoveAdmin", new { userId=item.UserId }) 
+        </td>
+    </tr>
+}
+
+</table>
