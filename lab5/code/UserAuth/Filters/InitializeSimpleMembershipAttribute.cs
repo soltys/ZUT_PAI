@@ -6,23 +6,12 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 using UserAuth.Models;
-
+[assembly: WebActivator.PostApplicationStartMethod(typeof(UserAuth.Filters.SimpleMembershipInitializer), "Start")]
 namespace UserAuth.Filters
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute
-    {
-        private static SimpleMembershipInitializer _initializer;
-        private static object _initializerLock = new object();
-        private static bool _isInitialized;
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            // Ensure ASP.NET Simple Membership is initialized only once per app start
-            LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
-        }
-
-        private class SimpleMembershipInitializer
+       
+        public  class SimpleMembershipInitializer
         {
             public SimpleMembershipInitializer()
             {
@@ -38,7 +27,7 @@ namespace UserAuth.Filters
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
                         }
                     }
-
+                    
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                     CreateAdminAccount();
                 }
@@ -61,6 +50,11 @@ namespace UserAuth.Filters
                     roleProvider.AddUsersToRoles(new[] { "admin" }, new[] { "admin" });
                 }
             }
+
+            public static void Start()
+            {
+                new SimpleMembershipInitializer();
+            }
         }
-    }
+    
 }

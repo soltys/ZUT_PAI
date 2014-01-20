@@ -8,7 +8,7 @@ using System.Web.Security;
 
 namespace UserAuth.Models
 {
-    public class UsersContext : DbContext
+    public class UsersContext :DbContext
     {
         public UsersContext()
             : base("DefaultConnection")
@@ -16,6 +16,7 @@ namespace UserAuth.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<LoginLog> LoginLog { get; set; }
     }
 
     [Table("UserProfile")]
@@ -26,6 +27,14 @@ namespace UserAuth.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         
+    }
+
+    public class LoginLog
+    {
+        [Key]        
+        public int LogId { get; set; }
+        public int UserId { get; set; }
+        public DateTime LoginDate { get; set; }
     }
 
     public class RegisterExternalLoginModel

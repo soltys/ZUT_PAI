@@ -14,7 +14,7 @@ using UserAuth.Models;
 namespace UserAuth.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    
     public class AccountController : Controller
     {
         private UsersContext db = new UsersContext();
@@ -39,12 +39,30 @@ namespace UserAuth.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                
+                using (UsersContext db = new UsersContext())
+                {
+                    var userProfile = db.UserProfiles.FirstOrDefault(up => up.UserName == model.UserName);
+                    db.LoginLog.Add(new LoginLog
+                    {
+                        UserId = userProfile.UserId,
+                        LoginDate = DateTime.Now
+                    });
+
+                    db.SaveChanges();
+                }
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
+        }
+
+
+        public ActionResult Index()
+        {
+            return View();
         }
 
         //
@@ -298,6 +316,7 @@ namespace UserAuth.Controllers
             return View(model);
         }
 
+        
         public ActionResult List()
         {
             var simpleRoleProvider = (SimpleRoleProvider)Roles.Provider;

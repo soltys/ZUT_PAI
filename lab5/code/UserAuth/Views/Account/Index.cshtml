@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "User Profile "  + User.Identity.Name;
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Last Logins</h1>                
+            </hgroup>
+            <p>
+                <table id="loginInfo" border="1" style="border-width:thick">
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </p>
+        </div>
+    </section>
+}
+
+
+@section scripts{
+    <script>
+
+        var sendData = {
+            username: 'admin',
+            password: '123456'
+        };
+
+        
+
+        $.ajax({
+            url: "/api/json/reply/UserData",
+            dateType: "json",
+            data: sendData,
+            type:"POST",
+
+        }).done(function (data) {
+       
+            console.log(data);
+            data.loginTime.forEach(function (time) {              
+                console.log(time);
+                var re = /Date\((\d+)/;
+                var match = re.exec(time);
+                var jsDate = new Date(parseInt(match[1]));
+                console.log(parseInt(match[1]));
+                $('#loginInfo tbody').append('<tr><td>' + jsDate.toLocaleDateString() + ' <br/>' + jsDate.toLocaleTimeString() + '</td></tr>');
+            });
+           
+        });
+
+    </script>
+}
